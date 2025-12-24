@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="layout">
+  <aside class="sidebar">
+    <h2>音声リスト</h2>
+    <ul class="audio-list">
+      {% for item in items %}
+      <li class="audio-item" data-id="{{ item.id }}">
+        <strong>{{ item.name }}</strong>
+        <span class="level">{{ item.level }}</span>
+        <p>{{ item.description }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+  <section class="player">
+    <div class="player-header">
+      <h2 id="current-title">音声を選択してください</h2>
+      <p id="current-description"></p>
+      <span id="current-level" class="level"></span>
+    </div>
+    <audio id="audio" controls></audio>
+    <div class="controls">
+      <button type="button" id="prev">前へ</button>
+      <button type="button" id="next">次へ</button>
+      <button type="button" id="pause">一時停止</button>
+      <button type="button" id="stop">停止</button>
+      <label>
+        速度
+        <select id="playback-rate">
+          <option value="0.5">0.5x</option>
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select>
+      </label>
+    </div>
+    <div class="answer-block">
+      <label for="answer">聞こえた内容を入力</label>
+      <textarea id="answer" rows="3" placeholder="漢字またはかなで入力"></textarea>
+      <button type="button" id="check">判定</button>
+      <div id="result"></div>
+    </div>
+  </section>
+</div>
+<script>
+  window.__AUDIO_ITEMS__ = {{ items | tojson }};
+</script>
+{% endblock %}
