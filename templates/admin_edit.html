@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="admin">
+  <h2>{{ '編集' if item else '新規追加' }}</h2>
+  <form method="post" class="form">
+    <label>
+      名称
+      <input type="text" name="name" value="{{ item.name if item else '' }}" required />
+    </label>
+    <label>
+      説明
+      <textarea name="description" rows="3" required>{{ item.description if item else '' }}</textarea>
+    </label>
+    <label>
+      レベル (N5~N1)
+      <input type="text" name="level" value="{{ item.level if item else '' }}" required />
+    </label>
+    <label>
+      音声URL
+      <input type="text" name="audio_url" value="{{ item.audio_url if item else '' }}" required />
+    </label>
+    <label>
+      期待するかな
+      <input type="text" name="expected_kana" value="{{ item.expected_kana if item else '' }}" required />
+    </label>
+    <label>
+      期待する漢字
+      <input type="text" name="expected_kanji" value="{{ item.expected_kanji if item else '' }}" required />
+    </label>
+    <div class="form-actions">
+      <button type="submit" class="button">保存</button>
+      <a href="{{ url_for('admin_list') }}">戻る</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

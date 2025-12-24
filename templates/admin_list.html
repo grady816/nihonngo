@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="admin">
+  <div class="admin-header">
+    <h2>音声管理</h2>
+    <a class="button" href="{{ url_for('admin_new') }}">新規追加</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>名称</th>
+        <th>レベル</th>
+        <th>説明</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.level }}</td>
+        <td>{{ item.description }}</td>
+        <td>
+          <a href="{{ url_for('admin_edit', item_id=item.id) }}">編集</a>
+          <form method="post" action="{{ url_for('admin_delete', item_id=item.id) }}" class="inline-form">
+            <button type="submit" class="danger">削除</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
